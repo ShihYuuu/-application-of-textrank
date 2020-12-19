@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='sidestyle2.css') }}">
+</head>
+
+<body>
+    <div class="container">
+      <div class="box">
+        <div class="imgBx">
+          <img src="{{ url_for('static', filename='image/software.jpg') }}"/>
+        </div>
+        <div class="content">
+          <h2>軟體工程師</h2>
+          <p>
+            當個辛苦的爆肝工程師吧
+          </p>
+          <input type="checkbox" id="pro1"></input>
+          <h3> 繼續 </h3>
+        </div>
+      </div>
+      <div class="box">
+        <div class="imgBx">
+			<img src="{{ url_for('static', filename='image/waiter.jpg') }}"/>
+        
+        </div>
+        <div class="content">
+          <h2>餐飲服務生</h2>
+          <p>
+            您選擇的是餐飲服務生
+          </p>
+          <input type="checkbox" id="pro2" ></input>
+          <h3> 繼續 </h3>
+          
+        </div>
+      </div>
+      <div class="box">
+        <div class="imgBx">
+			<img src="{{ url_for('static', filename='image/bushiban.jpg') }}"/>
+          
+        </div>
+        <div class="content">
+          <h2>補習班老師</h2>
+          <p>
+            請問你想擔任萬千學生的未來導師嗎 ?
+          </p>
+          <input type="checkbox" id="pro3" ></input>
+          <h3> 繼續 </h3>
+        </div>
+      </div>
+    </div>
+	
+</body>
+<body1>
+  <div>
+    <form>
+      輸入您的email：
+      <input type="text" id="mail" />
+    </form>
+    <button type="button">submit</button>
+    <p>job ：<span id="outcome"></span></p>
+  </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+	
+	$(document).ready(function() {
+		$(document).on('click', 'button', function(){
+			var pro;
+			var add = document.getElementById("mail").value;
+			
+			if(document.getElementById("pro1").checked){
+				pro = "engineer";
+			}else if(document.getElementById("pro2").checked){
+				pro = "waiter";
+			}else if(document.getElementById("pro3").checked){
+				pro = "teacher"
+			}
+			
+			$.ajax({
+				url: '/getjob/',
+				type: 'GET',
+				data: {'pro':pro, 'add':add },
+			})
+			.done( function(data) {
+				$('#outcome').html(data);
+			})
+			.fail( function() {
+				$('#outcome').html("fail");
+			});
+			
+		}); 
+	});
+	</script>
+  
+</body1>
+<body2>
+  <div class = "container1">
+    <h2>自動產生推薦信系統使用說明</h2>
+  </div>
+  <div class="container1">
+    <div class="imgBx1">
+		<img src="{{ url_for('static', filename='image/step1.PNG') }}"/>
+		<img src="{{ url_for('static', filename='image/step1.PNG') }}"/>
+		<img src="{{ url_for('static', filename='image/step1.PNG') }}"/>
+
+    </div>
+    <h2>Step 1. 選取想要生產推薦信職業</h2>
+    <div class="skew">
+      <p>
+        請任選職業，並勾選繼續選項以繼續!
+      </p>
+      <a href="#">別急， 繼續往下看</a>
+  </div>
+    <div class="container1">
+    <div class="imgBx1">
+		<img src="{{ url_for('static', filename='image/step2.PNG') }}"/>
+		<img src="{{ url_for('static', filename='image/step2.PNG') }}"/>
+		<img src="{{ url_for('static', filename='image/step2.PNG') }}"/>
+    </div>
+    <h2>Step 2. 輸入欲寄送電子郵件信箱</h2>
+    <div class="skew">
+      <p>
+        請在下面請輸入您的email的格子中輸入郵件信箱，並按下submit，就完成了喔!
+      </p>
+      <a href="#">別急， 還有一個步驟</a>
+    </div>
+  </div>
+    <div class="container1">
+    <div class="imgBx1">
+		<img src="{{ url_for('static', filename='image/step3.PNG') }}"/>
+		<img src="{{ url_for('static', filename='image/step3.PNG') }}"/>
+		<img src="{{ url_for('static', filename='image/step3.PNG') }}"/>
+    </div>
+    <h2>Step 3. 收取完成的推薦信</h2>
+    <div class="skew">
+      <p>
+        之後就可以在你所填入的信箱找到相關職缺的推薦信了喔!
+      </p>
+      <a href="#">馬上試用</a>
+    </div>
+  </div>
+</body2>
+</html>
